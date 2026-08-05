@@ -27,8 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*'] # for development purposes
 
-CORS_ALLOW_ALL_ORIGINS = True # for development purposes
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://eld-trip-planner-jade.vercel.app",
+]
 
 # Application definition
 
