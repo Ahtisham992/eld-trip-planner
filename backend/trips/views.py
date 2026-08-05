@@ -3,7 +3,12 @@ from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from django.db import transaction
+from bson.objectid import ObjectId
+
+from utils.mongo_db import trips_collection
 
 from .models import Trip, TripStop, DailyLog, LogEntry
 from .serializers import TripSerializer, TripInputSerializer
@@ -135,10 +140,74 @@ class TripListCreateView(APIView):
                     remarks=entry['remarks']
                 )
                 
-        # 6. Return response
-        # We need to fetch the full object again to get related items serialized correctly
+        # 6. Build response data
         trip.refresh_from_db()
-        return Response(TripSerializer(trip).data, status=status.HTTP_201_CREATED)
+        trip_data = TripSerializer(trip).data
+        
+        # 7. Auto-save is removed; saving is now explicit
+        return Response(trip_data, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def save_trip_to_history(request):
+    if trips_collection is None:
+        return Response({"error": "MongoDB not configured"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    data = request.data
+    mongo_doc = {
+        "user_id": request.user.id,
+        "created_at": datetime.datetime.utcnow(),
+        "driver_name": data.get('driver_name', ''),
+        "co_driver": data.get('co_driver', ''),
+        "carrier_name": data.get('carrier_name', ''),
+        "truck_number": data.get('truck_number', ''),
+        "trip_data": data.get('trip_data', {})
+    }
+    result = trips_collection.insert_one(mongo_doc)
+    return Response({"message": "Trip saved", "id": str(result.inserted_id)}, status=status.HTTP_201_CREATED)
+
+class TripHistoryDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        if trips_collection is None:
+            return Response({"error": "MongoDB not configured"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        try:
+            doc = trips_collection.find_one({"_id": ObjectId(pk), "user_id": request.user.id})
+            if not doc:
+                return Response({"error": "Trip not found"}, status=status.HTTP_404_NOT_FOUND)
+            doc['_id'] = str(doc['_id'])
+            return Response(doc, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        if trips_collection is None:
+            return Response({"error": "MongoDB not configured"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        try:
+            result = trips_collection.delete_one({"_id": ObjectId(pk), "user_id": request.user.id})
+            if result.deleted_count == 0:
+                return Response({"error": "Trip not found or not authorized"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Trip deleted"}, status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class TripHistoryView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        if trips_collection is None:
+            return Response({"error": "MongoDB not configured"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+        trips = list(trips_collection.find({"user_id": request.user.id}).sort("created_at", -1))
+        
+        # Format for frontend
+        history = []
+        for doc in trips:
+            doc['_id'] = str(doc['_id']) # Convert ObjectId to string
+            history.append(doc)
+            
+        return Response(history, status=status.HTTP_200_OK)
 
 class TripDetailView(generics.RetrieveAPIView):
     queryset = Trip.objects.all()

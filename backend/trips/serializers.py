@@ -39,3 +39,9 @@ class TripInputSerializer(serializers.Serializer):
     dropoff_location = serializers.CharField(max_length=255)
     current_cycle_used = serializers.FloatField(min_value=0.0, max_value=70.0, default=0.0)
     start_time = serializers.DateTimeField(required=False)
+    
+    # Extra aesthetic fields to save to Mongo
+    driver_name = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    co_driver = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    carrier_name = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    truck_number = serializers.CharField(max_length=255, required=False, allow_blank=True)

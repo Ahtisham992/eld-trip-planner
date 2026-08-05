@@ -9,13 +9,56 @@ const api = axios.create({
   },
 });
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export const authService = {
+  login: async (username, password) => {
+    const response = await api.post('/auth/login/', { username, password });
+    if (response.data.access) {
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+    }
+    return response.data;
+  },
+  register: async (username, password, email) => {
+    const response = await api.post('/auth/register/', { username, password, email });
+    if (response.data.access) {
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+    }
+    return response.data;
+  },
+  logout: () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+  }
+};
+
 export const tripService = {
   createTrip: async (tripData) => {
     const response = await api.post('/trips/', tripData);
     return response.data;
   },
-  getTrip: async (id) => {
-    const response = await api.get(`/trips/${id}/`);
+  getTripHistory: async () => {
+    const response = await api.get('/history/');
+    return response.data;
+  },
+  getTripHistoryDetail: async (id) => {
+    const response = await api.get(`/history/${id}/`);
+    return response.data;
+  },
+  saveTripToHistory: async (tripData) => {
+    const response = await api.post('/history/save/', tripData);
+    return response.data;
+  },
+  deleteTripFromHistory: async (id) => {
+    const response = await api.delete(`/history/${id}/`);
     return response.data;
   },
   getTrips: async () => {

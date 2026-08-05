@@ -16,9 +16,9 @@ const ELDLogSheet = ({ log }) => {
     ctx.clearRect(0, 0, width, height);
     
     // Constants for drawing
-    const marginX = 120; // Left margin for labels
+    const marginX = 160; // Left margin for labels (increased for long labels)
     const marginY = 40;  // Top margin
-    const gridWidth = width - marginX - 40; // 40 is right margin
+    const gridWidth = width - marginX - 30; // right margin
     const rowHeight = 40;
     
     const rows = [
@@ -29,12 +29,12 @@ const ELDLogSheet = ({ log }) => {
     ];
     
     // Draw background
-    ctx.fillStyle = '#0f172a'; // Match --bg-primary
+    ctx.fillStyle = '#ffffff'; // Match --bg-secondary
     ctx.fillRect(0, 0, width, height);
     
     // Draw Headers
     ctx.font = '500 12px Outfit, sans-serif';
-    ctx.fillStyle = '#f8fafc'; // Match --text-primary
+    ctx.fillStyle = '#0f172a'; // Match --text-primary
     ctx.textAlign = 'center';
     
     // Draw Midnight to Noon to Midnight labels
@@ -46,7 +46,7 @@ const ELDLogSheet = ({ log }) => {
       
       // Draw vertical lines
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; // Softer grid line
+      ctx.strokeStyle = '#e2e8f0'; // Slate 200
       ctx.lineWidth = 1;
       ctx.moveTo(x, marginY);
       ctx.lineTo(x, marginY + (4 * rowHeight));
@@ -56,7 +56,7 @@ const ELDLogSheet = ({ log }) => {
       if (i < 24) {
         const halfX = x + ((gridWidth / 24) / 2);
         ctx.beginPath();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; // Very faint tick
+        ctx.strokeStyle = '#f1f5f9'; // Slate 100
         ctx.moveTo(halfX, marginY);
         ctx.lineTo(halfX, marginY + (4 * rowHeight));
         ctx.stroke();
@@ -72,20 +72,20 @@ const ELDLogSheet = ({ log }) => {
       
       // Horizontal line
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.strokeStyle = '#cbd5e1'; // Slate 300
       ctx.lineWidth = 1;
       ctx.moveTo(marginX, y + (rowHeight / 2));
       ctx.lineTo(marginX + gridWidth, y + (rowHeight / 2));
       ctx.stroke();
       
       // Row label
-      ctx.fillStyle = '#cbd5e1'; // Match --text-secondary
+      ctx.fillStyle = '#475569'; // Match --text-secondary
       ctx.fillText(row.label, 10, y + (rowHeight / 2));
     });
     
     // Draw border around grid
     ctx.beginPath();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.strokeStyle = '#94a3b8'; // Slate 400
     ctx.lineWidth = 1;
     ctx.rect(marginX, marginY, gridWidth, 4 * rowHeight);
     ctx.stroke();
@@ -93,7 +93,7 @@ const ELDLogSheet = ({ log }) => {
     // Draw log entries
     if (log.entries && log.entries.length > 0) {
       ctx.beginPath();
-      ctx.strokeStyle = '#0ea5e9'; // Bright Sky blue for high contrast in dark mode
+      ctx.strokeStyle = '#305c3d'; // Forest Green for high contrast
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.lineWidth = 3;

@@ -2,22 +2,66 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  height: 100%;
+  padding: var(--space-6);
 }
 
-.trip-form-container h2 {
+.form-header h2 {
   font-size: var(--text-xl);
-  font-weight: 600;
-  margin-bottom: var(--space-2);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
   color: var(--text-primary);
 }
 
-.trip-form-container p {
+.form-header p {
   font-size: var(--text-sm);
   color: var(--text-secondary);
-  margin-bottom: var(--space-4);
-  line-height: 1.6;
 }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: var(--space-4);
+  align-items: end;
+}
+
+.quarter-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.full-width {
+  grid-column: span 4;
+}
+
+.half-width {
+  grid-column: span 2;
+}
+
+.third-width {
+  grid-column: span 1;
+}
+/* In a 4 column grid, taking a third is hard, let's just use flex or adjust grid. */
+/* Actually, let's just make the top part use flex-wrap or specific grid layout */
+@media (max-width: 1200px) {
+  .third-width, .half-width, .quarter-grid > .form-group {
+    grid-column: span 4;
+  }
+}
+@media (min-width: 1201px) {
+  .third-width { grid-column: span 1; }
+  /* Let's make third width actually span 1.33 but css grid can't. Let's make the grid 12 columns for flexibility */
+}
+
+/* Redefine form-grid to 12 columns */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+.full-width { grid-column: span 12; }
+.half-width { grid-column: span 6; }
+.third-width { grid-column: span 4; }
+.quarter-grid > .form-group { grid-column: span 3; }
 
 .form-group {
   display: flex;
@@ -26,10 +70,9 @@
 }
 
 .form-group label {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.02em;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .input-wrapper {
@@ -41,116 +84,64 @@
 .input-icon {
   position: absolute;
   left: var(--space-3);
-  font-size: var(--text-lg);
   color: var(--text-tertiary);
   pointer-events: none;
-  transition: color 0.2s ease;
 }
 
-.input-wrapper input[type="text"] {
+.input-wrapper input, .form-group > input {
   width: 100%;
   padding: var(--space-3);
-  padding-left: var(--space-8);
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: var(--text-sm);
   transition: all 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
 }
 
-.input-wrapper input[type="text"]:focus {
+.input-wrapper input {
+  padding-left: var(--space-8);
+}
+
+.form-group > input {
+  padding-left: var(--space-3);
+}
+
+.input-wrapper input:focus, .form-group > input:focus {
   outline: none;
   border-color: var(--accent-primary);
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+  box-shadow: 0 0 0 3px rgba(48, 92, 61, 0.1);
 }
 
-.input-wrapper input[type="text"]:focus + .input-icon {
-  color: var(--accent-primary);
+.input-wrapper.disabled-wrapper input, input:disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  cursor: not-allowed;
 }
 
-.input-wrapper input[type="text"]::placeholder {
-  color: var(--text-tertiary);
-}
-
-.range-slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-full);
-  outline: none;
-  margin-top: var(--space-2);
-}
-
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent-secondary);
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
-  transition: transform 0.2s ease;
-}
-
-.range-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
-}
-
-.range-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent-secondary);
-  cursor: pointer;
-  border: none;
-}
-
-.cycle-display {
+.section-divider {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: var(--space-3);
-  background: rgba(0, 0, 0, 0.2);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  margin: var(--space-2) 0;
+  position: relative;
 }
 
-.cycle-value {
-  color: var(--accent-secondary);
-  font-weight: 700;
-  font-size: var(--text-base);
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.cycle-max {
+.section-label {
+  padding: 0 var(--space-4);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--text-tertiary);
-  font-size: var(--text-xs);
-}
-
-.submit-btn {
-  margin-top: var(--space-4);
-  background: var(--gradient-primary);
-  color: white;
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
   font-weight: 600;
-  font-size: var(--text-base);
-  transition: all 0.3s ease;
-  border: none;
-  box-shadow: var(--shadow-glow);
-}
-
-.submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.5);
-}
-
-.submit-btn:active:not(:disabled) {
-  transform: translateY(0);
 }
 
 .submit-btn:disabled {

@@ -26,10 +26,10 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-tertiary);
   padding: var(--space-4);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 @media (min-width: 768px) {
@@ -55,18 +55,16 @@
 .info-item span {
   font-weight: 600;
   color: var(--text-primary);
-  font-size: var(--text-lg);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: var(--text-base);
+  word-break: break-word;
 }
 
 .canvas-container {
   overflow-x: auto;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--bg-secondary);
   border-radius: var(--radius-md);
   padding: var(--space-4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .log-canvas {
@@ -90,10 +88,10 @@
 .log-remarks li {
   font-size: var(--text-sm);
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-tertiary);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 .log-remarks li strong {

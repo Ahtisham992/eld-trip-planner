@@ -161,9 +161,12 @@ erDiagram
 | Method | Endpoint | Description | Request Body |
 |---|---|---|---|
 | `POST` | `/api/trips/` | Create a new trip, calculate route & HOS plan | `{ current_location, pickup_location, dropoff_location, current_cycle_used }` |
-| `GET` | `/api/trips/{id}/` | Retrieve full trip details with stops and logs | — |
-| `GET` | `/api/trips/{id}/logs/` | Get all daily log sheets for a trip | — |
-| `GET` | `/api/trips/` | List all previous trips | — |
+| `POST` | `/api/history/save/` | Explicitly save a trip to user history (MongoDB) | `{ trip_data: {...} }` |
+| `GET` | `/api/history/` | List all saved previous trips (MongoDB) | — |
+| `GET` | `/api/history/{id}/` | Retrieve full trip details for a specific history item | — |
+| `DELETE`| `/api/history/{id}/` | Delete a saved trip from history | — |
+| `POST` | `/api/auth/login/` | Authenticate and retrieve JWT token | `{ username, password }` |
+| `POST` | `/api/auth/register/` | Register a new user account | `{ username, password, email }` |
 
 ### API Response Structure
 
