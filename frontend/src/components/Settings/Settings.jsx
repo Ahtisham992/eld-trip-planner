@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Settings as SettingsIcon, User, Truck, Moon, Sun, Save } from 'lucide-react';
+import LoginRequired from '../Auth/LoginRequired';
 import './Settings.css';
 
 const Settings = () => {
@@ -34,6 +35,10 @@ const Settings = () => {
       setTimeout(() => setSaveStatus(null), 3000);
     }, 600);
   };
+
+  if (!user) {
+    return <LoginRequired featureName="access settings" />;
+  }
 
   return (
     <div className="settings-container animate-fade-up">

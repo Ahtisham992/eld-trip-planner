@@ -4,6 +4,7 @@ import { tripService } from '../../services/api';
 import { AuthContext } from '../../context/AuthContext';
 import { Map, MapPin, Calendar, Truck, User, Trash2 } from 'lucide-react';
 import Loading from '../Loading/Loading';
+import LoginRequired from '../Auth/LoginRequired';
 import './TripHistory.css';
 
 const TripHistory = () => {
@@ -44,17 +45,7 @@ const TripHistory = () => {
   };
 
   if (!user) {
-    return (
-      <div className="history-container empty">
-        <div className="empty-state card glass-panel">
-          <div className="empty-state-icon">
-            <User size={48} />
-          </div>
-          <h3>Login Required</h3>
-          <p>Please log in to view your saved trip history.</p>
-        </div>
-      </div>
-    );
+    return <LoginRequired featureName="view your saved trip history" />;
   }
 
   if (loading) return <Loading message="Loading trip history..." />;

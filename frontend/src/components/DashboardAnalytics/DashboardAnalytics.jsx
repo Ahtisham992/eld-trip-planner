@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { tripService } from '../../services/api';
 import { Map, MapPin, Truck, TrendingUp, AlertTriangle } from 'lucide-react';
 import Loading from '../Loading/Loading';
+import LoginRequired from '../Auth/LoginRequired';
 import './DashboardAnalytics.css';
 
 const DashboardAnalytics = () => {
@@ -41,19 +42,13 @@ const DashboardAnalytics = () => {
     
     if (user) {
       fetchStats();
+    } else {
+      setLoading(false);
     }
   }, [user]);
 
   if (!user) {
-    return (
-      <div style={{padding: '2rem'}}>
-        <div className="card glass-panel" style={{padding: '3rem', textAlign: 'center'}}>
-          <AlertTriangle size={48} color="var(--accent-danger)" style={{marginBottom: '1rem'}} />
-          <h2>Authentication Required</h2>
-          <p>You must be logged in to view the analytics dashboard.</p>
-        </div>
-      </div>
-    );
+    return <LoginRequired featureName="view your dashboard analytics" />;
   }
 
   if (loading) return <Loading message="Loading dashboard analytics..." />;
