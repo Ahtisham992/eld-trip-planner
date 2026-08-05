@@ -104,7 +104,7 @@ const NewTrip = () => {
             </div>
 
             <button className="empty-submit-btn" onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              document.querySelector('.main-content')?.scrollTo({ top: 0, behavior: 'smooth' });
               document.getElementById('origin')?.focus();
             }}>
               <MapPin size={18} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }} />
