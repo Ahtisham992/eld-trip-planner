@@ -6,17 +6,25 @@ import './TripForm.css';
 const TripForm = ({ onSubmit, loading }) => {
   const { user } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
-    current_location: 'Los Angeles, CA',
-    pickup_location: 'San Francisco, CA',
-    dropoff_location: 'Portland, OR',
-    current_cycle_used: 0,
-    departure_time: '',
-    driver_name: '',
-    co_driver: '',
-    carrier_name: '',
-    truck_number: ''
+  const [formData, setFormData] = useState(() => {
+    const saved = sessionStorage.getItem('currentTripForm');
+    if (saved) return JSON.parse(saved);
+    return {
+      current_location: 'Los Angeles, CA',
+      pickup_location: 'San Francisco, CA',
+      dropoff_location: 'Portland, OR',
+      current_cycle_used: 0,
+      departure_time: '',
+      driver_name: '',
+      co_driver: '',
+      carrier_name: '',
+      truck_number: ''
+    };
   });
+
+  useEffect(() => {
+    sessionStorage.setItem('currentTripForm', JSON.stringify(formData));
+  }, [formData]);
 
   useEffect(() => {
     // Auto-populate from user and settings

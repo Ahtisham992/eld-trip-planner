@@ -11,14 +11,34 @@ import { AlertTriangle, Map, MapPin, Clock, FileText, Check, Save } from 'lucide
 
 const NewTrip = () => {
   const [loading, setLoading] = useState(false);
-  const [tripData, setTripData] = useState(null);
+  const [tripData, setTripData] = useState(() => {
+    const saved = sessionStorage.getItem('currentTripData');
+    return saved ? JSON.parse(saved) : null;
+  });
   const [error, setError] = useState(null);
-  const [saveStatus, setSaveStatus] = useState(null); // 'saving', 'saved', 'error'
+  const [saveStatus, setSaveStatus] = useState(null);
   
   const { user } = React.useContext(AuthContext);
 
-  const [activeTab, setActiveTab] = useState('overview');
-  const [activeLogDay, setActiveLogDay] = useState(1);
+  const [activeTab, setActiveTab] = useState(() => {
+    return sessionStorage.getItem('currentActiveTab') || 'overview';
+  });
+  const [activeLogDay, setActiveLogDay] = useState(() => {
+    const saved = sessionStorage.getItem('currentActiveLogDay');
+    return saved ? parseInt(saved) : 1;
+  });
+
+  React.useEffect(() => {
+    if (tripData) sessionStorage.setItem('currentTripData', JSON.stringify(tripData));
+  }, [tripData]);
+
+  React.useEffect(() => {
+    sessionStorage.setItem('currentActiveTab', activeTab);
+  }, [activeTab]);
+
+  React.useEffect(() => {
+    sessionStorage.setItem('currentActiveLogDay', activeLogDay);
+  }, [activeLogDay]);
 
   const handleTripSubmit = async (formData) => {
     setLoading(true);
