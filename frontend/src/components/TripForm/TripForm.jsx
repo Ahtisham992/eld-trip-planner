@@ -24,9 +24,9 @@ const TripForm = ({ onSubmit, loading }) => {
   };
 
   return (
-    <form className="trip-form card glass-panel" onSubmit={handleSubmit}>
+    <form className="trip-form-container card glass-panel" onSubmit={handleSubmit}>
       <h2>Plan New Trip</h2>
-      <p className="form-subtitle">Enter locations to generate HOS-compliant route</p>
+      <p>Enter locations to generate HOS-compliant route</p>
 
       <div className="form-group">
         <label htmlFor="current_location">Current Location</label>
@@ -81,22 +81,20 @@ const TripForm = ({ onSubmit, loading }) => {
 
       <div className="form-group">
         <label htmlFor="current_cycle_used">Current Cycle Used (Hours)</label>
-        <div className="cycle-slider-container">
-          <input
-            type="range"
-            id="current_cycle_used"
-            name="current_cycle_used"
-            min="0"
-            max="70"
-            step="0.5"
-            value={formData.current_cycle_used}
-            onChange={handleChange}
-            className="slider"
-          />
-          <div className="cycle-value">
-            <span className="value-badge">{formData.current_cycle_used} hrs</span>
-            <span className="max-value">/ 70</span>
-          </div>
+        <input
+          type="range"
+          id="current_cycle_used"
+          name="current_cycle_used"
+          min="0"
+          max="70"
+          step="0.5"
+          value={formData.current_cycle_used}
+          onChange={handleChange}
+          className="range-slider"
+        />
+        <div className="cycle-display">
+          <span className="cycle-value">{formData.current_cycle_used} hrs</span>
+          <span className="cycle-max">/ 70</span>
         </div>
       </div>
 

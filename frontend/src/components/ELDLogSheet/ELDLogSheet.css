@@ -25,9 +25,9 @@
 .log-info-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-3);
-  background: var(--bg-tertiary);
-  padding: var(--space-3);
+  gap: var(--space-4);
+  background: rgba(255, 255, 255, 0.02);
+  padding: var(--space-4);
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -41,17 +41,21 @@
 .info-item {
   display: flex;
   flex-direction: column;
+  gap: var(--space-1);
 }
 
 .info-item label {
   font-size: var(--text-xs);
   color: var(--text-secondary);
   text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
 }
 
 .info-item span {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
+  font-size: var(--text-lg);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -59,9 +63,10 @@
 
 .canvas-container {
   overflow-x: auto;
-  background: white;
+  background: rgba(0, 0, 0, 0.2);
   border-radius: var(--radius-md);
-  padding: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .log-canvas {
@@ -85,11 +90,13 @@
 .log-remarks li {
   font-size: var(--text-sm);
   color: var(--text-secondary);
-  background: var(--bg-tertiary);
-  padding: var(--space-2) var(--space-3);
+  background: rgba(255, 255, 255, 0.02);
+  padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .log-remarks li strong {
   color: var(--text-primary);
+  font-weight: 600;
 }

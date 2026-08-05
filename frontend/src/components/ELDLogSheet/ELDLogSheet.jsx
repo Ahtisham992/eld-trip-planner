@@ -29,12 +29,12 @@ const ELDLogSheet = ({ log }) => {
     ];
     
     // Draw background
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = '#0f172a'; // Match --bg-primary
     ctx.fillRect(0, 0, width, height);
     
     // Draw Headers
-    ctx.font = 'bold 12px sans-serif';
-    ctx.fillStyle = '#000000';
+    ctx.font = '500 12px Outfit, sans-serif';
+    ctx.fillStyle = '#f8fafc'; // Match --text-primary
     ctx.textAlign = 'center';
     
     // Draw Midnight to Noon to Midnight labels
@@ -46,7 +46,7 @@ const ELDLogSheet = ({ log }) => {
       
       // Draw vertical lines
       ctx.beginPath();
-      ctx.strokeStyle = '#cccccc';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; // Softer grid line
       ctx.lineWidth = 1;
       ctx.moveTo(x, marginY);
       ctx.lineTo(x, marginY + (4 * rowHeight));
@@ -56,7 +56,7 @@ const ELDLogSheet = ({ log }) => {
       if (i < 24) {
         const halfX = x + ((gridWidth / 24) / 2);
         ctx.beginPath();
-        ctx.strokeStyle = '#eeeeee';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; // Very faint tick
         ctx.moveTo(halfX, marginY);
         ctx.lineTo(halfX, marginY + (4 * rowHeight));
         ctx.stroke();
@@ -72,28 +72,30 @@ const ELDLogSheet = ({ log }) => {
       
       // Horizontal line
       ctx.beginPath();
-      ctx.strokeStyle = '#999999';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
       ctx.lineWidth = 1;
       ctx.moveTo(marginX, y + (rowHeight / 2));
       ctx.lineTo(marginX + gridWidth, y + (rowHeight / 2));
       ctx.stroke();
       
       // Row label
-      ctx.fillStyle = '#000000';
+      ctx.fillStyle = '#cbd5e1'; // Match --text-secondary
       ctx.fillText(row.label, 10, y + (rowHeight / 2));
     });
     
     // Draw border around grid
     ctx.beginPath();
-    ctx.strokeStyle = '#000000';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = 1;
     ctx.rect(marginX, marginY, gridWidth, 4 * rowHeight);
     ctx.stroke();
     
     // Draw log entries
     if (log.entries && log.entries.length > 0) {
       ctx.beginPath();
-      ctx.strokeStyle = '#2563eb'; // Blue line for logs
+      ctx.strokeStyle = '#0ea5e9'; // Bright Sky blue for high contrast in dark mode
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
       ctx.lineWidth = 3;
       
       let prevX = null;

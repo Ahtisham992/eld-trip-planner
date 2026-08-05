@@ -25,24 +25,42 @@
 .summary-item {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-3);
-  background: var(--bg-tertiary);
-  border-radius: var(--radius-md);
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle glow behind the card content */
+.summary-item::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 60%);
+  z-index: 0;
 }
 
 .summary-label {
   font-size: var(--text-xs);
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  z-index: 1;
 }
 
 .summary-value {
-  font-size: var(--text-base);
-  font-weight: 600;
+  font-size: var(--text-lg);
+  font-weight: 700;
   color: var(--text-primary);
+  z-index: 1;
 }
 
 .route-value {

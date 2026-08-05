@@ -52,14 +52,15 @@
   height: 16px;
   border-radius: 50%;
   border: 3px solid var(--accent-primary);
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
   z-index: 2;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
 }
 
 .timeline-line {
   width: 2px;
   flex: 1;
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
   margin: var(--space-1) 0;
   min-height: 40px;
 }
@@ -83,22 +84,24 @@
 }
 
 .status-badge {
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  padding: 2px 8px;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
-  font-weight: 700;
+  font-weight: 600;
   border: 1px solid transparent;
+  backdrop-filter: blur(4px);
 }
 
 .timeline-details {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  background: var(--bg-tertiary);
-  padding: var(--space-3);
+  background: rgba(255, 255, 255, 0.02);
+  padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .timeline-details span {
