@@ -104,8 +104,10 @@ const NewTrip = () => {
             </div>
 
             <button className="empty-submit-btn" onClick={() => {
-              document.querySelector('.form-panel')?.scrollIntoView({ behavior: 'smooth' });
-              setTimeout(() => document.getElementById('origin')?.focus(), 500);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              const main = document.querySelector('.main-content');
+              if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+              setTimeout(() => document.getElementById('current_location')?.focus(), 300);
             }}>
               <MapPin size={18} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }} />
               Choose a Route
