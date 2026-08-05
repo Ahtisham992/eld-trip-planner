@@ -14,6 +14,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [tripData, setTripData] = useState(null);
   const [error, setError] = useState(null);
+  
+  const [activeTab, setActiveTab] = useState('overview');
+  const [activeLogDay, setActiveLogDay] = useState(1);
 
   const handleTripSubmit = async (formData) => {
     setLoading(true);
@@ -21,6 +24,8 @@ function App() {
     try {
       const data = await tripService.createTrip(formData);
       setTripData(data);
+      setActiveTab('overview');
+      setActiveLogDay(1);
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.error || 'Failed to generate trip. Please try again.');
@@ -60,14 +65,73 @@ function App() {
             {tripData && !loading && (
               <div className="results-container animate-fade-up">
                 <TripSummary trip={tripData} />
-                <RouteMap trip={tripData} />
-                <StopTimeline stops={tripData.stops} />
                 
-                <div className="logs-section">
-                  <h3 style={{ marginBottom: '1rem' }}>Daily Logs</h3>
-                  {tripData.daily_logs?.map((log, index) => (
-                    <ELDLogSheet key={log.id || index} log={log} />
-                  ))}
+                <div className="tabs-container">
+                  <div className="tabs-header">
+                    <button 
+                      className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('overview')}
+                    >
+                      <span className="tab-icon">📍</span> Map & Overview
+                    </button>
+                    <button 
+                      className={`tab-btn ${activeTab === 'timeline' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('timeline')}
+                    >
+                      <span className="tab-icon">⏱️</span> Itinerary
+                    </button>
+                    <button 
+                      className={`tab-btn ${activeTab === 'logs' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('logs')}
+                    >
+                      <span className="tab-icon">📋</span> ELD Logs
+                    </button>
+                  </div>
+                  
+                  <div className="tab-content">
+                    {activeTab === 'overview' && (
+                      <div className="tab-pane animate-fade-up">
+                        <RouteMap trip={tripData} />
+                      </div>
+                    )}
+                    
+                    {activeTab === 'timeline' && (
+                      <div className="tab-pane animate-fade-up">
+                        <StopTimeline stops={tripData.stops} />
+                      </div>
+                    )}
+                    
+                    {activeTab === 'logs' && (
+                      <div className="tab-pane animate-fade-up">
+                        {tripData.daily_logs && tripData.daily_logs.length > 1 && (
+                          <div className="log-day-nav">
+                            <span className="log-nav-label">Select Day:</span>
+                            <div className="log-day-buttons">
+                              {tripData.daily_logs.map((log) => (
+                                <button
+                                  key={log.day_number}
+                                  className={`day-btn ${activeLogDay === log.day_number ? 'active' : ''}`}
+                                  onClick={() => setActiveLogDay(log.day_number)}
+                                >
+                                  Day {log.day_number}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {tripData.daily_logs && tripData.daily_logs.length > 0 ? (
+                          <ELDLogSheet 
+                            log={tripData.daily_logs.find(l => l.day_number === activeLogDay) || tripData.daily_logs[0]} 
+                          />
+                        ) : (
+                          <div className="card glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+                            <p>No ELD Logs generated for this trip.</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
