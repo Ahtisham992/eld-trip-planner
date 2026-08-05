@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Menu } from 'lucide-react';
 import NewTrip from './components/NewTrip/NewTrip';
 import DashboardAnalytics from './components/DashboardAnalytics/DashboardAnalytics';
 import TripHistory from './components/TripHistory/TripHistory';
@@ -14,9 +15,31 @@ import './index.css';
 import './App.css';
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <div className="app-container">
-      <Sidebar />
+      {/* Mobile Header */}
+      <header className="mobile-header">
+        <div className="mobile-logo">
+          <img src="/logo.png" alt="RouteSync Logo" style={{ width: '28px', height: '28px' }} />
+          <h2>RouteSync</h2>
+        </div>
+        <button className="hamburger-btn" onClick={toggleMobileMenu} aria-label="Toggle Menu">
+          <Menu size={24} />
+        </button>
+      </header>
+
+      <Sidebar isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
+      
       <main className="main-content">
         <Routes>
           <Route path="/" element={<NewTrip />} />

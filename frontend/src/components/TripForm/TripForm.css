@@ -41,14 +41,10 @@
 }
 /* In a 4 column grid, taking a third is hard, let's just use flex or adjust grid. */
 /* Actually, let's just make the top part use flex-wrap or specific grid layout */
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
   .third-width, .half-width, .quarter-grid > .form-group {
-    grid-column: span 4;
+    grid-column: span 12 !important;
   }
-}
-@media (min-width: 1201px) {
-  .third-width { grid-column: span 1; }
-  /* Let's make third width actually span 1.33 but css grid can't. Let's make the grid 12 columns for flexibility */
 }
 
 /* Redefine form-grid to 12 columns */

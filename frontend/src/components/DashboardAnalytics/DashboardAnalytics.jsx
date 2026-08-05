@@ -97,10 +97,10 @@ const DashboardAnalytics = () => {
         </div>
       </div>
       
-      <div className="analytics-details-grid" style={{ display: 'flex', gap: '2rem', marginTop: '2rem' }}>
+      <div className="analytics-details-grid">
         
         {/* Compliance Graph */}
-        <div className="card glass-panel" style={{ flex: 2, padding: '1.5rem' }}>
+        <div className="card glass-panel analytics-main-col">
           <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Weekly HOS Compliance</h3>
           <div className="chart-container" style={{ height: '250px', display: 'flex', alignItems: 'flex-end', gap: '1rem', padding: '1rem 0', borderBottom: '1px solid var(--text-tertiary)' }}>
             {[6, 8, 10, 11, 9, 7, 5].map((hours, idx) => (
@@ -116,14 +116,14 @@ const DashboardAnalytics = () => {
               </div>
             ))}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1rem', fontSize: '12px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1rem', fontSize: '12px', flexWrap: 'wrap' }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><div style={{width: '12px', height: '12px', background: 'var(--accent-primary)'}}></div> Compliant Driving</span>
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><div style={{width: '12px', height: '12px', background: 'var(--accent-warning)'}}></div> Max Limits Reached</span>
           </div>
         </div>
 
         {/* Right Sidebar */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div className="analytics-side-col">
           
           {/* Driver Leaderboard */}
           <div className="card glass-panel" style={{ padding: '1.5rem' }}>
