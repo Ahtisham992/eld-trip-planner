@@ -104,10 +104,17 @@ const NewTrip = () => {
             </div>
 
             <button className="empty-submit-btn" onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              const main = document.querySelector('.main-content');
-              if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
-              setTimeout(() => document.getElementById('current_location')?.focus(), 300);
+              const form = document.querySelector('.trip-form-container');
+              if (form) {
+                if (form.checkValidity()) {
+                  form.requestSubmit();
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  const main = document.querySelector('.main-content');
+                  if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+                  setTimeout(() => form.reportValidity(), 300);
+                }
+              }
             }}>
               <MapPin size={18} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }} />
               Choose a Route
