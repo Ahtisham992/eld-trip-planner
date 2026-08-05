@@ -7,6 +7,7 @@ import TripSummary from './components/TripSummary/TripSummary';
 import StopTimeline from './components/StopTimeline/StopTimeline';
 import ELDLogSheet from './components/ELDLogSheet/ELDLogSheet';
 import { tripService } from './services/api';
+import { AlertTriangle, Map, MapPin, Clock, FileText } from 'lucide-react';
 import './index.css';
 import './App.css';
 
@@ -49,14 +50,14 @@ function App() {
             
             {error && (
               <div className="error-message card glass-panel">
-                <span className="error-icon">⚠️</span>
+                <AlertTriangle className="error-icon" size={24} />
                 {error}
               </div>
             )}
             
             {!loading && !tripData && !error && (
               <div className="empty-state card glass-panel">
-                <span className="empty-icon">🗺️</span>
+                <Map className="empty-icon" size={48} color="var(--accent-primary)" />
                 <h3>Ready to Route</h3>
                 <p>Enter your trip details to generate an HOS-compliant route and ELD logs.</p>
               </div>
@@ -72,19 +73,19 @@ function App() {
                       className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
                       onClick={() => setActiveTab('overview')}
                     >
-                      <span className="tab-icon">📍</span> Map & Overview
+                      <MapPin className="tab-icon" size={16} /> Map & Overview
                     </button>
                     <button 
                       className={`tab-btn ${activeTab === 'timeline' ? 'active' : ''}`}
                       onClick={() => setActiveTab('timeline')}
                     >
-                      <span className="tab-icon">⏱️</span> Itinerary
+                      <Clock className="tab-icon" size={16} /> Itinerary
                     </button>
                     <button 
                       className={`tab-btn ${activeTab === 'logs' ? 'active' : ''}`}
                       onClick={() => setActiveTab('logs')}
                     >
-                      <span className="tab-icon">📋</span> ELD Logs
+                      <FileText className="tab-icon" size={16} /> ELD Logs
                     </button>
                   </div>
                   

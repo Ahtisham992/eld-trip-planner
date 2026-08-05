@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MapPin, Package, Flag } from 'lucide-react';
 import './TripForm.css';
 
 const TripForm = ({ onSubmit, loading }) => {
@@ -30,7 +31,7 @@ const TripForm = ({ onSubmit, loading }) => {
       <div className="form-group">
         <label htmlFor="current_location">Current Location</label>
         <div className="input-wrapper">
-          <span className="input-icon">📍</span>
+          <MapPin className="input-icon" size={18} color="var(--text-secondary)" />
           <input
             type="text"
             id="current_location"
@@ -47,7 +48,7 @@ const TripForm = ({ onSubmit, loading }) => {
       <div className="form-group">
         <label htmlFor="pickup_location">Pickup Location</label>
         <div className="input-wrapper">
-          <span className="input-icon">📦</span>
+          <Package className="input-icon" size={18} color="var(--text-secondary)" />
           <input
             type="text"
             id="pickup_location"
@@ -64,7 +65,7 @@ const TripForm = ({ onSubmit, loading }) => {
       <div className="form-group">
         <label htmlFor="dropoff_location">Dropoff Location</label>
         <div className="input-wrapper">
-          <span className="input-icon">🏁</span>
+          <Flag className="input-icon" size={18} color="var(--text-secondary)" />
           <input
             type="text"
             id="dropoff_location"

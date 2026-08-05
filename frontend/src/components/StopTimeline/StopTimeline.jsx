@@ -1,4 +1,5 @@
 import React from 'react';
+import { MapPin, Clock, Route } from 'lucide-react';
 import './StopTimeline.css';
 
 const getStatusColor = (status) => {
@@ -62,9 +63,9 @@ const StopTimeline = ({ stops }) => {
               </div>
               
               <div className="timeline-details">
-                <span className="location">📍 {stop.location_name}</span>
-                <span className="duration">⏳ {stop.duration_hours.toFixed(2)} hrs</span>
-                <span className="miles">🛣️ Mile {stop.mile_marker.toFixed(1)}</span>
+                <span className="location"><MapPin size={14} className="detail-icon"/> {stop.location_name}</span>
+                <span className="duration"><Clock size={14} className="detail-icon"/> {stop.duration_hours.toFixed(2)} hrs</span>
+                <span className="miles"><Route size={14} className="detail-icon"/> Mile {stop.mile_marker.toFixed(1)}</span>
               </div>
             </div>
           </div>

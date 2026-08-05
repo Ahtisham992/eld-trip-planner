@@ -1,4 +1,5 @@
 import React from 'react';
+import { Truck } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
@@ -7,7 +8,7 @@ const Header = () => {
       <div className="header-gradient-bar"></div>
       <div className="container header-content">
         <div className="header-logo">
-          <span className="logo-icon">🚛</span>
+          <Truck className="logo-icon" size={32} color="var(--accent-primary)" />
           <div className="logo-text">
             <h1>ELD Trip Planner</h1>
             <span className="subtitle">Spotter AI Full Stack Assessment</span>
