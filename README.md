@@ -1,11 +1,12 @@
-# 🚛 ELD Trip Planner
+# 🚛 RouteSync ELD (Intelligent HOS Platform)
 
 ![React](https://img.shields.io/badge/React-18-blue)
 ![Vite](https://img.shields.io/badge/Vite-5-purple)
 ![Django](https://img.shields.io/badge/Django-5.1-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-ELD (Electronic Logging Device) Trip Planner is a full-stack web application designed to calculate optimal, FMCSA-compliant trucking routes and generate daily Hours of Service (HOS) logs.
+**RouteSync ELD** is an enterprise-grade full-stack web application designed to calculate optimal, FMCSA-compliant trucking routes, persist driver history securely in the cloud, and automatically generate standard daily Hours of Service (HOS) logs.
 
 Built as part of the **Spotter AI Full-Stack Developer Assessment**.
 
@@ -13,16 +14,18 @@ Built as part of the **Spotter AI Full-Stack Developer Assessment**.
 
 ## ✨ Features
 
-- **Automated HOS Compliance Engine**: A robust backend state machine enforcing the FMCSA property-carrying rules, including:
+- **Automated HOS Compliance Engine**: A robust backend state machine enforcing FMCSA property-carrying rules, including:
   - 11-Hour Driving Limit
   - 14-Hour On-Duty Window
   - 30-Minute Mandatory Break (after 8 hours of driving)
   - 10-Hour Mandatory Rest
   - 70-Hour / 8-Day Cycle limit management
 - **Dynamic Routing**: Integrates with Open Source Routing Machine (OSRM) and Nominatim (OpenStreetMap) to calculate real-world driving distances and durations between locations.
+- **Secure Cloud Storage**: Utilizes **MongoDB Atlas** to securely persist user accounts, vehicle configurations, and complex routing history geometry.
+- **JWT Authentication**: Full user registration and login securely handled via SimpleJWT.
+- **Analytics Dashboard**: Tracks active drivers, total miles driven, and generates graphical mockups for HOS compliance and violations.
 - **Visual Log Sheets (Canvas)**: Programmatically draws standard 24-hour FMCSA daily log sheets on an HTML5 canvas, mapping exact duty statuses (Off Duty, Sleeper Berth, Driving, On Duty) down to the minute.
-- **Sleek UI/UX**: A modern, dark-themed, glassmorphism-inspired React frontend using `lucide-react` for professional iconography and a clean tabbed layout.
-- **Automated Testing**: Includes comprehensive Django Unit Tests for the HOS Engine and Vitest component testing for the React frontend.
+- **Premium UI/UX**: A state-of-the-art glassmorphism React frontend utilizing bespoke CSS design tokens, modern micro-animations, and dynamic local storage settings persistence.
 
 ---
 
@@ -32,19 +35,19 @@ The project is structured as a decoupled full-stack application:
 
 ### Backend (`/backend`)
 - **Framework**: Django REST Framework (DRF)
-- **Database**: SQLite (Development)
+- **Database**: MongoDB Atlas (Primary Storage) + SQLite (Auth/Relational)
 - **Key Modules**:
   - `hos_engine.py`: The core state machine simulating a truck driver's shift and ensuring FMCSA compliance.
-  - `log_generator.py`: Converts continuous timeline events into discrete midnight-to-midnight `DailyLog` models.
   - `route_service.py`: Handles geocoding (Nominatim) and route coordinate/distance fetching (OSRM).
+  - `auth_app`: Handles JWT authentication natively integrated with React Context.
 
 ### Frontend (`/frontend`)
-- **Framework**: React.js (via Vite)
-- **Styling**: Vanilla CSS with custom Design Tokens (CSS Variables) for a cohesive dark theme.
+- **Framework**: React.js 18 (via Vite)
+- **Styling**: Vanilla CSS with custom Design Tokens (CSS Variables) for a cohesive light/glass theme.
 - **Key Components**:
   - `RouteMap`: Interactive map using React-Leaflet to visualize the trip path and stops.
   - `ELDLogSheet`: Custom Canvas drawing logic rendering exact ELD grids.
-  - `StopTimeline`: Chronological breakdown of all driving and resting phases.
+  - `DashboardAnalytics`: Aggregates MongoDB fleet history into actionable analytics.
 
 ---
 
@@ -72,6 +75,9 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Create environment file for MongoDB
+echo "MONGO_URI=your_mongodb_atlas_connection_string" > .env
 
 # Run migrations
 python manage.py migrate
