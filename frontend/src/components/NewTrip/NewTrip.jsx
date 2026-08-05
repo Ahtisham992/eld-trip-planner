@@ -55,10 +55,16 @@ const NewTrip = () => {
   };
 
   return (
-    <div className="layout-grid">
-      <div className="form-panel">
-        <TripForm onSubmit={handleTripSubmit} loading={loading} />
+    <div className="new-trip-container animate-fade-up">
+      <div className="page-header" style={{ marginBottom: '2rem' }}>
+        <h2>New Trip Planner</h2>
+        <p>Plan compliant routes and automatically generate FMCSA log sheets.</p>
       </div>
+
+      <div className="layout-grid">
+        <div className="form-panel">
+          <TripForm onSubmit={handleTripSubmit} loading={loading} />
+        </div>
 
       <div className="main-panel">
         {loading && <Loading message="Calculating optimal HOS route..." />}
@@ -187,7 +193,8 @@ const NewTrip = () => {
         )}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default NewTrip;

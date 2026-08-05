@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { MapPin, Package, Flag, Clock } from 'lucide-react';
+import { AuthContext } from '../../context/AuthContext';
 import './TripForm.css';
 
 const TripForm = ({ onSubmit, loading }) => {
+  const { user } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     current_location: 'Los Angeles, CA',
     pickup_location: 'San Francisco, CA',
@@ -14,6 +17,25 @@ const TripForm = ({ onSubmit, loading }) => {
     carrier_name: '',
     truck_number: ''
   });
+
+  useEffect(() => {
+    // Auto-populate from user and settings
+    const savedSettings = localStorage.getItem('appSettings');
+    let carrier = '';
+    let truck = '';
+    if (savedSettings) {
+      const parsed = JSON.parse(savedSettings);
+      carrier = parsed.carrierName || '';
+      truck = parsed.truckNumber || '';
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      driver_name: user ? user.username : '',
+      carrier_name: carrier,
+      truck_number: truck
+    }));
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

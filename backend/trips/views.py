@@ -144,6 +144,12 @@ class TripListCreateView(APIView):
         trip.refresh_from_db()
         trip_data = TripSerializer(trip).data
         
+        # Add aesthetic form data back to response so frontend can save it to mongo
+        trip_data['driver_name'] = data.get('driver_name', '')
+        trip_data['co_driver'] = data.get('co_driver', '')
+        trip_data['carrier_name'] = data.get('carrier_name', '')
+        trip_data['truck_number'] = data.get('truck_number', '')
+        
         # 7. Auto-save is removed; saving is now explicit
         return Response(trip_data, status=status.HTTP_201_CREATED)
 
@@ -154,14 +160,13 @@ def save_trip_to_history(request):
         return Response({"error": "MongoDB not configured"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
     data = request.data
+    trip_data = data.get('trip_data', {})
+    
     mongo_doc = {
         "user_id": request.user.id,
         "created_at": datetime.datetime.utcnow(),
-        "driver_name": data.get('driver_name', ''),
-        "co_driver": data.get('co_driver', ''),
-        "carrier_name": data.get('carrier_name', ''),
-        "truck_number": data.get('truck_number', ''),
-        "trip_data": data.get('trip_data', {})
+        "driver_name": trip_data.get('driver_name', ''),
+        "trip_data": trip_data
     }
     result = trips_collection.insert_one(mongo_doc)
     return Response({"message": "Trip saved", "id": str(result.inserted_id)}, status=status.HTTP_201_CREATED)

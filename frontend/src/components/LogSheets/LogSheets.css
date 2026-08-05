@@ -1,0 +1,42 @@
+.log-sheets-container {
+  padding: var(--space-6) var(--space-8);
+  width: 100%;
+}
+
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.log-table th,
+.log-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.log-table th {
+  color: var(--text-tertiary);
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.log-table td {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.log-table tr:hover td {
+  background: var(--bg-tertiary);
+}
+
+.badge {
+  background: var(--accent-secondary);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
