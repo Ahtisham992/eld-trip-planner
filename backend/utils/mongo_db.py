@@ -1,8 +1,10 @@
 import os
 from pymongo import MongoClient
+from dotenv import load_dotenv
 
-# Use the provided MongoDB URI
-MONGO_URI = "mongodb://shamimuhammad77:helloAhtisham@cluster1-shard-00-00.yvtj5.mongodb.net:27017,cluster1-shard-00-01.yvtj5.mongodb.net:27017,cluster1-shard-00-02.yvtj5.mongodb.net:27017/?replicaSet=atlas-ewagxf-shard-0&tls=true&authSource=admin"
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 
 # Initialize MongoClient
 try:
