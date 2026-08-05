@@ -103,7 +103,10 @@ const NewTrip = () => {
               </div>
             </div>
 
-            <button className="empty-submit-btn" onClick={() => document.querySelector('.trip-form-container').requestSubmit()}>
+            <button className="empty-submit-btn" onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              document.getElementById('origin')?.focus();
+            }}>
               <MapPin size={18} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }} />
               Choose a Route
             </button>
