@@ -2,6 +2,8 @@ import requests
 import json
 import logging
 from typing import Tuple, Dict, Any, List
+import time
+import functools
 
 logger = logging.getLogger(__name__)
 
@@ -13,10 +15,13 @@ class RouteService:
     """
     
     @staticmethod
+    @functools.lru_cache(maxsize=128)
     def geocode(location_name: str) -> Tuple[float, float, str]:
         """
         Geocodes a location name to lat/lng using Nominatim.
         """
+        # Nominatim strictly requires maximum 1 request per second
+        time.sleep(1.1)
         url = "https://nominatim.openstreetmap.org/search"
         headers = {
             'User-Agent': 'SpotterAI-ELD-Assessment/1.0'
