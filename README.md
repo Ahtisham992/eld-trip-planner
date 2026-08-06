@@ -15,8 +15,7 @@ Built as part of the **Spotter AI Full-Stack Developer Assessment**.
 - **Backend API**: [https://routesync-api-nv64.onrender.com/api/trips/](https://routesync-api-nv64.onrender.com/api/trips/)
 
 ### Demo
-![Complete Trip Generation Demo](<img width="1920" height="924" alt="trip_demo_1786012218606" src="https://github.com/user-attachments/assets/cabf933c-5136-477a-b2f3-ea083a5dea86" />
-)
+![Complete Trip Generation Demo](https://github.com/user-attachments/assets/cabf933c-5136-477a-b2f3-ea083a5dea86)
 
 ---
 
