@@ -14,7 +14,7 @@ const TripForm = ({ onSubmit, loading }) => {
       pickup_location: 'San Francisco, CA',
       dropoff_location: 'Portland, OR',
       current_cycle_used: 0,
-      departure_time: '',
+      start_time: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
       driver_name: '',
       co_driver: '',
       carrier_name: '',
@@ -146,11 +146,10 @@ const TripForm = ({ onSubmit, loading }) => {
           <label>Departure time</label>
           <div className="input-wrapper">
             <input 
-              type="text" 
-              name="departure_time"
-              value={formData.departure_time}
+              type="datetime-local" 
+              name="start_time"
+              value={formData.start_time || formData.departure_time || new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
               onChange={handleChange}
-              placeholder="Current time" 
             />
           </div>
         </div>
