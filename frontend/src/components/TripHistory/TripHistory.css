@@ -26,7 +26,7 @@
 
 .history-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 20px var(--border-light);
 }
 
 .history-header {
@@ -34,7 +34,7 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .history-date {

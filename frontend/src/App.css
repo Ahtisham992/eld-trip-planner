@@ -17,7 +17,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   background-color: var(--bg-secondary);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: 0;
   z-index: 40;
@@ -118,7 +118,7 @@
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
 
@@ -220,7 +220,7 @@
   background: var(--bg-secondary);
   border-radius: var(--radius-md);
   padding: var(--space-1);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
 
@@ -243,14 +243,14 @@
 
 .tab-btn:hover {
   color: var(--text-primary);
-  background: rgba(0, 0, 0, 0.02);
+  background: var(--bg-subtle);
 }
 
 .tab-btn.active {
   background: var(--bg-tertiary);
   color: var(--text-primary);
   font-weight: 600;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px var(--border-light);
 }
 
 .tab-pane {
@@ -266,7 +266,7 @@
   background: var(--bg-secondary);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
 }
 
@@ -284,7 +284,7 @@
 
 .day-btn {
   background: var(--bg-tertiary);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light);
   color: var(--text-secondary);
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
@@ -295,7 +295,7 @@
 }
 
 .day-btn:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: var(--bg-subtle);
   color: var(--text-primary);
 }
 
