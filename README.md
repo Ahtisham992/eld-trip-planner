@@ -1,4 +1,4 @@
-# 🚛 RouteSync ELD (Intelligent HOS Platform)
+# RouteSync ELD (Intelligent HOS Platform)
 
 ![React](https://img.shields.io/badge/React-18-blue)
 ![Vite](https://img.shields.io/badge/Vite-5-purple)
@@ -10,9 +10,16 @@
 
 Built as part of the **Spotter AI Full-Stack Developer Assessment**.
 
+### Live Application
+- **Frontend**: [https://eld-trip-planner-jade.vercel.app/](https://eld-trip-planner-jade.vercel.app/)
+- **Backend API**: [https://routesync-api-nv64.onrender.com/api/trips/](https://routesync-api-nv64.onrender.com/api/trips/)
+
+### Demo
+![Complete Trip Generation Demo](docs/demo.webp)
+
 ---
 
-## ✨ Features
+## Features
 
 - **Automated HOS Compliance Engine**: A robust backend state machine enforcing FMCSA property-carrying rules, including:
   - 11-Hour Driving Limit
@@ -26,10 +33,11 @@ Built as part of the **Spotter AI Full-Stack Developer Assessment**.
 - **Analytics Dashboard**: Tracks active drivers, total miles driven, and generates graphical mockups for HOS compliance and violations.
 - **Visual Log Sheets (Canvas)**: Programmatically draws standard 24-hour FMCSA daily log sheets on an HTML5 canvas, mapping exact duty statuses (Off Duty, Sleeper Berth, Driving, On Duty) down to the minute.
 - **Premium UI/UX**: A state-of-the-art glassmorphism React frontend utilizing bespoke CSS design tokens, modern micro-animations, and dynamic local storage settings persistence.
+- **Dark Mode**: A comprehensive global ThemeContext that natively integrates with the user's system preferences.
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 The project is structured as a decoupled full-stack application:
 
@@ -38,7 +46,7 @@ The project is structured as a decoupled full-stack application:
 - **Database**: MongoDB Atlas (Primary Storage) + SQLite (Auth/Relational)
 - **Key Modules**:
   - `hos_engine.py`: The core state machine simulating a truck driver's shift and ensuring FMCSA compliance.
-  - `route_service.py`: Handles geocoding (Nominatim) and route coordinate/distance fetching (OSRM).
+  - `route_service.py`: Handles geocoding (Nominatim) and route coordinate/distance fetching (OSRM) with robust rate-limiting and LRU caching.
   - `auth_app`: Handles JWT authentication natively integrated with React Context.
 
 ### Frontend (`/frontend`)
@@ -51,7 +59,7 @@ The project is structured as a decoupled full-stack application:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Python 3.10+
@@ -105,7 +113,7 @@ The frontend application will be available at `http://localhost:5173`.
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Backend (Django)
 The backend test suite heavily targets the complex `HOSEngine` logic.
@@ -123,6 +131,6 @@ npm run test
 
 ---
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
