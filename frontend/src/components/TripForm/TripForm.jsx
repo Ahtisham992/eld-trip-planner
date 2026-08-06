@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { MapPin, Package, Flag, Clock } from 'lucide-react';
+import { MapPin, Package, Flag, Clock, Loader2 } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import './TripForm.css';
 
@@ -208,7 +208,11 @@ const TripForm = ({ onSubmit, loading }) => {
         style={{ width: '100%', marginTop: '1.5rem', padding: '12px', fontSize: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }} 
         disabled={loading}
       >
-        <MapPin size={18} />
+        {loading ? (
+          <Loader2 size={18} className="animate-spin" />
+        ) : (
+          <MapPin size={18} />
+        )}
         {loading ? 'Calculating Route...' : 'Calculate Route'}
       </button>
     </form>
