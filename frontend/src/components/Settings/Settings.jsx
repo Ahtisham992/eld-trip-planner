@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Settings as SettingsIcon, User, Truck, Moon, Sun, Save } from 'lucide-react';
+import { ThemeContext } from '../../context/ThemeContext';
+import { Settings as SettingsIcon, User, Truck, Moon, Sun, Save, Laptop } from 'lucide-react';
 import LoginRequired from '../Auth/LoginRequired';
 import './Settings.css';
 
 const Settings = () => {
   const { user } = useContext(AuthContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const [carrierName, setCarrierName] = useState('Swift Transportation');
   const [truckNumber, setTruckNumber] = useState('TX-9021');
   const [hosRule, setHosRule] = useState('70/8');
-  const [theme, setTheme] = useState('light');
   const [saveStatus, setSaveStatus] = useState(null);
 
   useEffect(() => {
@@ -20,7 +21,6 @@ const Settings = () => {
       if (parsed.carrierName) setCarrierName(parsed.carrierName);
       if (parsed.truckNumber) setTruckNumber(parsed.truckNumber);
       if (parsed.hosRule) setHosRule(parsed.hosRule);
-      if (parsed.theme) setTheme(parsed.theme);
     }
   }, []);
 
@@ -137,6 +137,12 @@ const Settings = () => {
                   onClick={() => setTheme('dark')}
                 >
                   <Moon size={18} /> Dark
+                </button>
+                <button 
+                  className={`theme-btn ${theme === 'system' ? 'active' : ''}`}
+                  onClick={() => setTheme('system')}
+                >
+                  <Laptop size={18} /> System
                 </button>
               </div>
             </div>

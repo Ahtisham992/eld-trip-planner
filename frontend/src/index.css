@@ -64,8 +64,7 @@
   --text-3xl: 1.875rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+:root[data-theme='dark'] {
     /* Color Palette - Premium Dark Theme */
     --bg-primary: #0f172a; /* Slate 900 */
     --bg-secondary: #1e293b; /* Slate 800 */
@@ -88,8 +87,6 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px var(--border-medium);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px var(--border-medium);
   }
-}
-
 * {
   box-sizing: border-box;
   margin: 0;

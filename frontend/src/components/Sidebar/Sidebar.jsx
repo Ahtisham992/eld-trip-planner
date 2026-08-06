@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Truck, LayoutDashboard, Plus, Clock, FileText, Settings, LogOut, ChevronRight, X } from 'lucide-react';
+import { Truck, LayoutDashboard, Plus, Clock, FileText, Settings, LogOut, ChevronRight, X, Sun, Moon, Laptop } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
+import { ThemeContext } from '../../context/ThemeContext';
 import './Sidebar.css';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <>
@@ -59,6 +61,15 @@ const Sidebar = ({ isOpen, onClose }) => {
             <Settings size={20} />
             <span>Settings</span>
           </NavLink>
+        </div>
+
+        <div className="sidebar-theme-toggle" onClick={toggleTheme} style={{
+          display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', margin: '0 12px 12px',
+          borderRadius: '8px', cursor: 'pointer', background: 'var(--bg-tertiary)', color: 'var(--text-secondary)',
+          fontSize: '14px', fontWeight: '500', transition: 'all 0.2s ease'
+        }}>
+          {theme === 'dark' ? <Moon size={18} /> : theme === 'light' ? <Sun size={18} /> : <Laptop size={18} />}
+          <span>{theme === 'dark' ? 'Dark Mode' : theme === 'light' ? 'Light Mode' : 'System Theme'}</span>
         </div>
 
         <div className="sidebar-footer">
