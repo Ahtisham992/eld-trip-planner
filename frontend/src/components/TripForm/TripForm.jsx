@@ -203,9 +203,14 @@ const TripForm = ({ onSubmit, loading }) => {
         </div>
       </div>
 
-      {/* Hidden submit button since submit happens from right panel now */}
-      <button type="submit" style={{ display: 'none' }} disabled={loading}>
-        Submit
+      <button 
+        type="submit" 
+        className="btn btn-primary" 
+        style={{ width: '100%', marginTop: '1.5rem', padding: '12px', fontSize: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }} 
+        disabled={loading}
+      >
+        <MapPin size={18} />
+        {loading ? 'Calculating Route...' : 'Calculate Route'}
       </button>
     </form>
   );
